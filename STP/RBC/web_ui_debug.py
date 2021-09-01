@@ -2,7 +2,6 @@ from scipy.sparse import data
 import streamlit as st
 import pandas as pd
 import numpy as np
-from os import path
 from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
 import STP_constants as cst
@@ -12,6 +11,9 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import LinearSVR, LinearSVC
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
+
+import requests 
+from io import StringIO
 
 st.title("STP Models")
 
@@ -57,10 +59,14 @@ def get_dataset(dataset):
         url = "https://drive.google.com/file/d/1SqmbYkrDx8-0GJdrXrxPioyH1WeKo8FO/view?usp=sharing"
     elif dataset == "SCA":
         url = "https://drive.google.com/file/d/1w9Ika6d4V_tQ3HyghAGCefji6ajuzzaA/view?usp=sharing"
-    final_url = 'https://drive.google.com/uc?export=download&id='+url.split('/')[-2]
-    DATA = pd.read_csv(final_url)
 
-    return DATA
+    file_id = url.split('/')[-2]
+    dwn_url='https://drive.google.com/uc?export=download&id=' + file_id
+    url2 = requests.get(dwn_url).text
+    csv_raw = StringIO(url2)
+    df = pd.read_csv(csv_raw)
+    
+    return df
 
 @st.cache
 def get_training_data(MTR, DATA):
