@@ -45,7 +45,7 @@ st.sidebar.write("""
         cst.VT_SPLIT, cst.TREES, cst.DEPTH, cst.KFOLD, cst.JOB
     )
 @st.cache
-def get_dataset(metric, dataset, path_arg):
+def get_dataset(metric, dataset):
     MTR = metric # 'CPT'
 
     ###############################################################################
@@ -81,8 +81,8 @@ def get_dataset(metric, dataset, path_arg):
 
     return TRN_X, TRN_Y
 
-if st.session_state.metric_name and st.session_state.dataset_name and st.session_state.directory_name: 
-    TRN_X, TRN_Y = get_dataset(st.session_state.metric_name, st.session_state.dataset_name, st.session_state.directory_name)
+if st.session_state.metric_name and st.session_state.dataset_name and st.session_state.model_name: 
+    TRN_X, TRN_Y = get_dataset(st.session_state.metric_name, st.session_state.dataset_name)
 
     def add_parameter_ui():
         params = []
