@@ -1,8 +1,6 @@
-from scipy.sparse import data
 import streamlit as st
 import pandas as pd
 import numpy as np
-from os import path
 from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
 import STP_constants as cst
@@ -46,24 +44,18 @@ st.sidebar.write("""
         cst.VT_SPLIT, cst.TREES, cst.DEPTH, cst.KFOLD, cst.JOB
     )
 @st.cache
-def get_dataset(dataset):
+def get_dataset(metric, dataset):
+    MTR = metric # 'CPT'
 
     ###############################################################################
     # Read CSV
     ###############################################################################
     if dataset == "REG":
-        url = "https://drive.google.com/file/d/1NUUYmBIJmW9mRybg4jU8daFqUJbFdc_e/view?usp=sharing"
+        DATA = pd.read_csv("https://github.com/elijahbartolome/MoNeT_ML/blob/main/STP/RBC/REG_HLT_50Q_10T.csv?raw=true")
     elif dataset == "CLS": 
-        url = "https://drive.google.com/file/d/1SqmbYkrDx8-0GJdrXrxPioyH1WeKo8FO/view?usp=sharing"
+        DATA = pd.read_csv("https://github.com/elijahbartolome/MoNeT_ML/blob/main/STP/RBC/CLS_HLT_50Q_10T.csv?raw=true")
     elif dataset == "SCA":
-        url = "https://drive.google.com/file/d/1w9Ika6d4V_tQ3HyghAGCefji6ajuzzaA/view?usp=sharing"
-    final_url = 'https://drive.google.com/uc?export=download&id='+url.split('/')[-2]
-    DATA = pd.read_csv(final_url)
-
-    return DATA
-
-@st.cache
-def get_training_data(MTR, DATA):
+        DATA = pd.read_csv("https://github.com/elijahbartolome/MoNeT_ML/blob/main/STP/RBC/A_SCA_HLT_50Q_10T.csv?raw=true")
     # Features and labels ---------------------------------------------------------
     COLS = list(DATA.columns)
     (FEATS, LABLS) = (
@@ -87,11 +79,7 @@ def get_training_data(MTR, DATA):
     return TRN_X, TRN_Y
 
 if st.session_state.metric_name and st.session_state.dataset_name and st.session_state.model_name: 
-    #dataset = get_dataset(st.session_state.metric_name, st.session_state.dataset_name)
-
-    dataset = get_dataset(st.session_state.dataset_name)
-    st.write(dataset)
-    TRN_X, TRN_Y = get_training_data(st.session_state.metric_name, dataset)
+    TRN_X, TRN_Y = get_dataset(st.session_state.metric_name, st.session_state.dataset_name)
 
     def add_parameter_ui():
         params = []
