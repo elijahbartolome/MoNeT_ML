@@ -1,4 +1,5 @@
 import streamlit as st
+import joblib
 import pandas as pd
 import numpy as np
 from sklearn import preprocessing
@@ -15,10 +16,10 @@ st.title("STP Models")
 
 st.session_state.dataset_name = st.sidebar.selectbox("Select Dataset", ("", "SCA", "CLS", "REG"))
 
-st.session_state.model_name = st.sidebar.selectbox("Select Model", ("", "B", "ET", "GBT", "RF", "S", "V"))
+st.session_state.model_name = st.sidebar.selectbox("Select Model", ("", "ET", "RF"))
 
 st.sidebar.write("""
-## Model Abbreviations:
+## Model Abbreviations (Only B, RF, and ET working now):
 * `b`: Bagging Classifier/Regressor
 * `et`: Extra Trees
 * `gbt`: Gradient Boosted Trees
@@ -27,10 +28,10 @@ st.sidebar.write("""
 * `v`: Voting Classifier/Regressor
 """)
 
-st.session_state.metric_name = st.sidebar.selectbox("Select Metric", ("", "CPT", "TTI", "TTO", "WOP", "POE", "MIN", "RAP"))
+st.session_state.metric_name = st.sidebar.selectbox("Select Metric", ("", "CPT"))
 
 st.sidebar.write("""
-## Metric Abbreviations:
+## Metric Abbreviations (Only CPT working now):
 * `CPT`: Cumulative fraction of mosquitoes divided by time
 * `TTI`: Time to introgression
 * `TTO`: Time to outrogression
@@ -43,43 +44,8 @@ st.sidebar.write("""
 (VT_SPLIT, TREES, DEPTH, KFOLD, JOB) = (
         cst.VT_SPLIT, cst.TREES, cst.DEPTH, cst.KFOLD, cst.JOB
     )
-@st.cache
-def get_dataset(metric, dataset):
-    MTR = metric # 'CPT'
-
-    ###############################################################################
-    # Read CSV
-    ###############################################################################
-    if dataset == "REG":
-        DATA = pd.read_csv("https://github.com/elijahbartolome/MoNeT_ML/blob/main/STP/RBC/REG_HLT_50Q_10T.csv?raw=true")
-    elif dataset == "CLS": 
-        DATA = pd.read_csv("https://github.com/elijahbartolome/MoNeT_ML/blob/main/STP/RBC/CLS_HLT_50Q_10T.csv?raw=true")
-    elif dataset == "SCA":
-        DATA = pd.read_csv("https://github.com/elijahbartolome/MoNeT_ML/blob/main/STP/RBC/A_SCA_HLT_50Q_10T.csv?raw=true")
-    # Features and labels ---------------------------------------------------------
-    COLS = list(DATA.columns)
-    (FEATS, LABLS) = (
-        [i for i in COLS if i[0]=='i'],
-        [i for i in COLS if i[0]!='i']
-    )
-    ###############################################################################
-    # Split Train/Test
-    ###############################################################################
-    (inputs, outputs) = (DATA[FEATS], DATA[MTR])
-    
-    #normalize features
-    scaler = preprocessing.MinMaxScaler()
-    inputs = pd.DataFrame(scaler.fit_transform(inputs), columns=FEATS)
-
-    (TRN_X, VAL_X, TRN_Y, VAL_Y) = train_test_split(
-        inputs, outputs, 
-        test_size=float(VT_SPLIT)
-    )
-
-    return TRN_X, TRN_Y
 
 if st.session_state.metric_name and st.session_state.dataset_name and st.session_state.model_name: 
-    TRN_X, TRN_Y = get_dataset(st.session_state.metric_name, st.session_state.dataset_name)
 
     def add_parameter_ui():
         params = []
@@ -102,113 +68,15 @@ if st.session_state.metric_name and st.session_state.dataset_name and st.session
     params = add_parameter_ui()
 
     @st.cache
-    def get_model(dataset, model):
-        # regression model
-        if dataset == "REG" or dataset == "SCA":
-            if model == 'B':
-                clf = BaggingRegressor(
-                    n_estimators=TREES
-                )   
-            elif model == 'ET':
-                clf = ExtraTreesRegressor(
-                    n_estimators=TREES, max_depth=DEPTH,
-                    min_samples_split=5, min_samples_leaf=50,
-                    max_features=None, max_leaf_nodes=None,
-                    n_jobs=JOB
-                )
-            elif model == 'GBT':
-                clf = GradientBoostingRegressor(
-                    n_estimators=TREES,
-                    min_samples_split=5, min_samples_leaf=50,
-                    max_features=None, max_leaf_nodes=None
-                )
-            elif model == 'RF':
-                clf = RandomForestRegressor(
-                    n_estimators=TREES, max_depth=DEPTH,
-                    min_samples_split=5, min_samples_leaf=50,
-                    max_features=None, max_leaf_nodes=None,
-                    n_jobs=JOB
-                )
-            elif model == 'S':
-                rf = RandomForestRegressor(
-                n_estimators=TREES, max_depth=DEPTH,
-                min_samples_split=5, min_samples_leaf=50,
-                max_features=None, max_leaf_nodes=None,
-                n_jobs=JOB
-                )
-                estimators = [
-                    ('svr', LinearSVR(random_state=42)),
-                    ('lr', RidgeCV())
-                ]
-                clf = StackingRegressor(
-                    estimators = estimators, final_estimator = rf,
-                    n_jobs = JOB
-                )
-            elif model == 'V':
-                rf = RandomForestRegressor(
-                    n_estimators=TREES, max_depth=DEPTH,
-                    min_samples_split=5, min_samples_leaf=50,
-                    max_features=None, max_leaf_nodes=None,
-                    n_jobs=JOB
-                )
-                estimators = [('lr', LinearRegression()), ('rf', rf)]
-                clf = VotingRegressor(estimators=estimators, n_jobs=JOB)
-        # classifier model
-        else:
-            if model == 'B':
-                clf = BaggingClassifier(
-                    n_estimators=TREES
-                )
-            elif model == 'ET':
-                clf = ExtraTreesClassifier(
-                    n_estimators=TREES, max_depth=DEPTH, criterion='entropy',
-                    min_samples_split=5, min_samples_leaf=50,
-                    max_features=None, max_leaf_nodes=None,
-                    n_jobs=JOB, bootstrap=True
-                )
-            elif model == 'GBT':
-                clf = GradientBoostingClassifier(
-                    n_estimators=TREES, max_depth=DEPTH,
-                    min_samples_split=5, min_samples_leaf=50,
-                    max_features=None, max_leaf_nodes=None
-                )
-            elif model == 'RF':
-                clf = RandomForestClassifier(
-                    n_estimators=TREES, max_depth=DEPTH, criterion='entropy',
-                    min_samples_split=5, min_samples_leaf=50,
-                    max_features=None, max_leaf_nodes=None,
-                    n_jobs=JOB, bootstrap=True
-                )
-            elif model == 'S':
-                rf = RandomForestClassifier(
-                    n_estimators=TREES, max_depth=DEPTH, criterion='entropy',
-                    min_samples_split=5, min_samples_leaf=50,
-                    max_features=None, max_leaf_nodes=None,
-                    n_jobs=JOB
-                )
-                estimators = [('rf', rf), ('svr', make_pipeline(StandardScaler(), LinearSVC(random_state=42)))]
-                clf = StackingClassifier(
-                    estimators = estimators, n_jobs = JOB
-                )
-            elif model == 'V':
-                rf = RandomForestClassifier(
-                    n_estimators=TREES, max_depth=DEPTH, criterion='entropy',
-                    min_samples_split=5, min_samples_leaf=50,
-                    max_features=None, max_leaf_nodes=None,
-                    n_jobs=JOB
-                )
-                v_estimators = [('rf', rf), 
-                ('lr', LogisticRegression(multi_class='multinomial', random_state = 1)),
-                ('gnb', GaussianNB())
-                ]
-                clf = VotingClassifier(estimators=v_estimators, voting='hard', n_jobs=JOB)
+    def get_model(dataset, model, metric):
+        file_name = "{dataset_name}_{model_name}_{metric_name}.pkl".format(dataset_name=dataset, model_name=model, metric_name=metric)
+        clf = joblib.load(file_name)
 
         return clf
 
-    clf = get_model(st.session_state.dataset_name, st.session_state.model_name)
+    clf = get_model(st.session_state.dataset_name, st.session_state.model_name, st.session_state.metric_name)
 
-    def predict(clf, TRN_X, TRN_Y, params, metric):
-        clf.fit(TRN_X, TRN_Y)
+    def predict(clf, params, metric):
         output = clf.predict(params)
         st.write("""
         ## Predicted Output for
@@ -220,4 +88,4 @@ if st.session_state.metric_name and st.session_state.dataset_name and st.session
     run_clicked = st.sidebar.button('Run model')
 
     if run_clicked: 
-        predict(clf, TRN_X, TRN_Y, params, st.session_state.metric_name)
+        predict(clf, params, st.session_state.metric_name)
