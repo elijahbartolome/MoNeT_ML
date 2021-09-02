@@ -11,7 +11,7 @@ st.session_state.dataset_name = st.sidebar.selectbox("Select Dataset", ("", "SCA
 st.session_state.model_name = st.sidebar.selectbox("Select Model", ("", "ET", "RF"))
 
 st.sidebar.write("""
-## Model Abbreviations (Only B, RF, and ET working now):
+## Model Abbreviations (Only RF and ET working now):
 * `b`: Bagging Classifier/Regressor
 * `et`: Extra Trees
 * `gbt`: Gradient Boosted Trees
