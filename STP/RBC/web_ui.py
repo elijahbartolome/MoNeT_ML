@@ -1,16 +1,8 @@
 import streamlit as st
 import joblib
-import pandas as pd
 import numpy as np
-from sklearn import preprocessing
-from sklearn.model_selection import train_test_split
 import STP_constants as cst
-from sklearn.ensemble import ExtraTreesRegressor, ExtraTreesClassifier, VotingRegressor, VotingClassifier,GradientBoostingRegressor, GradientBoostingClassifier, RandomForestRegressor, RandomForestClassifier, StackingClassifier, StackingRegressor, BaggingClassifier, BaggingRegressor
-from sklearn.linear_model import LinearRegression, LogisticRegression, RidgeCV
-from sklearn.naive_bayes import GaussianNB
-from sklearn.svm import LinearSVR, LinearSVC
-from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import StandardScaler
+from pathlib import Path
 
 st.title("STP Models")
 
@@ -69,7 +61,7 @@ if st.session_state.metric_name and st.session_state.dataset_name and st.session
 
     @st.cache
     def get_model(dataset, model, metric):
-        file_name = "{dataset_name}_{model_name}_{metric_name}.pkl".format(dataset_name=dataset, model_name=model, metric_name=metric)
+        file_name = Path(__file__).parents[0] / "{dataset_name}_{model_name}_{metric_name}.pkl".format(dataset_name=dataset, model_name=model, metric_name=metric)
         clf = joblib.load(file_name)
 
         return clf

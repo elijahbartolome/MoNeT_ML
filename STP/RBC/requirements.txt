@@ -1,4 +1,1 @@
-sklearn
-pandas
-numpy
-streamlit
+joblib
