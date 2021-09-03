@@ -37,6 +37,8 @@ st.sidebar.write("""
         cst.VT_SPLIT, cst.TREES, cst.DEPTH, cst.KFOLD, cst.JOB
     )
 
+#get_clicked = st.sidebar.button('Get model')
+
 if st.session_state.metric_name and st.session_state.dataset_name and st.session_state.model_name: 
 
     @st.cache
