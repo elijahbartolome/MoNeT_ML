@@ -8,10 +8,10 @@ st.title("STP Models")
 
 st.session_state.dataset_name = st.sidebar.selectbox("Select Dataset", ("", "SCA", "CLS", "REG"))
 
-st.session_state.model_name = st.sidebar.selectbox("Select Model", ("", "ET", "RF"))
+st.session_state.model_name = st.sidebar.selectbox("Select Model", ("", "ET", "GBT", "RF"))
 
 st.sidebar.write("""
-## Model Abbreviations (Only RF and ET working now):
+## Model Abbreviations (Only RF, GBT, and ET working now):
 * `b`: Bagging Classifier/Regressor
 * `et`: Extra Trees
 * `gbt`: Gradient Boosted Trees
@@ -20,10 +20,10 @@ st.sidebar.write("""
 * `v`: Voting Classifier/Regressor
 """)
 
-st.session_state.metric_name = st.sidebar.selectbox("Select Metric", ("", "CPT"))
+st.session_state.metric_name = st.sidebar.selectbox("Select Metric", ("", "CPT", "TTI", "TTO"))
 
 st.sidebar.write("""
-## Metric Abbreviations (Only CPT working now):
+## Metric Abbreviations (Only CPT, TTI, and TTO working now):
 * `CPT`: Cumulative fraction of mosquitoes divided by time
 * `TTI`: Time to introgression
 * `TTO`: Time to outrogression
