@@ -41,7 +41,7 @@ st.sidebar.write("""
 
 if st.session_state.metric_name and st.session_state.dataset_name and st.session_state.model_name: 
 
-    @st.cache
+    @st.cache(allow_output_mutation=True)
     def get_model(dataset, model, metric):
         file_name = Path(__file__).parents[0] / "input/{dataset_name}_{model_name}_{metric_name}.pkl".format(dataset_name=dataset, model_name=model, metric_name=metric)
         clf = joblib.load(file_name)
@@ -70,16 +70,24 @@ if st.session_state.metric_name and st.session_state.dataset_name and st.session
 
     params = add_parameter_ui()
 
-    def predict(clf, params, metric):
+    def predict(clf, params, dataset, model, metric):
         output = clf.predict(params)
         st.write("""
         ## Predicted Output for
         """)
+        st.write("Dataset:")
+        st.write(dataset)
+
+        st.write("Model:")
+        st.write(model)
+
+        st.write("Metric:")
         st.write(metric)
+
         st.write(output[0])
 
     # Run functions
     run_clicked = st.sidebar.button('Run model')
 
     if run_clicked: 
-        predict(clf, params, st.session_state.metric_name)
+        predict(clf, params, st.session_state.dataset_name, st.session_state.model_name, st.session_state.metric_name)
