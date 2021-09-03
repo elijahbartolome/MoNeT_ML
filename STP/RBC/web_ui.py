@@ -39,6 +39,15 @@ st.sidebar.write("""
 
 if st.session_state.metric_name and st.session_state.dataset_name and st.session_state.model_name: 
 
+    @st.cache
+    def get_model(dataset, model, metric):
+        file_name = Path(__file__).parents[0] / "input/{dataset_name}_{model_name}_{metric_name}.pkl".format(dataset_name=dataset, model_name=model, metric_name=metric)
+        clf = joblib.load(file_name)
+
+        return clf
+
+    clf = get_model(st.session_state.dataset_name, st.session_state.model_name, st.session_state.metric_name)
+
     def add_parameter_ui():
         params = []
 
@@ -58,15 +67,6 @@ if st.session_state.metric_name and st.session_state.dataset_name and st.session
         return test
 
     params = add_parameter_ui()
-
-    @st.cache
-    def get_model(dataset, model, metric):
-        file_name = Path(__file__).parents[0] / "{dataset_name}_{model_name}_{metric_name}.pkl".format(dataset_name=dataset, model_name=model, metric_name=metric)
-        clf = joblib.load(file_name)
-
-        return clf
-
-    clf = get_model(st.session_state.dataset_name, st.session_state.model_name, st.session_state.metric_name)
 
     def predict(clf, params, metric):
         output = clf.predict(params)

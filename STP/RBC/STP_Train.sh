@@ -1,10 +1,22 @@
 #!/bin/bash
 # chmod +x STP_clsTrain.sh
 
-SET=$1
-MTR=$2
-PTH=$3
 # Train models
-python STP_Train_b.py $SET $MTR $PTH
-python STP_Train_rf.py $SET $MTR $PTH
-python STP_Train_et.py $SET $MTR $PTH
+python STP_Train_rf.py 'SCA' 'TTI' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_et.py 'SCA' 'TTI' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+
+python STP_Train_rf.py 'CLS' 'TTI' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_et.py 'CLS' 'TTI' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+
+python STP_Train_rf.py 'REG' 'TTI' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_et.py 'REG' 'TTI' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+
+
+python STP_Train_rf.py 'SCA' 'TTO' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_et.py 'SCA' 'TTO' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+
+python STP_Train_rf.py 'CLS' 'TTO' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_et.py 'CLS' 'TTO' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+
+python STP_Train_rf.py 'REG' 'TTO' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_et.py 'REG' 'TTO' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
