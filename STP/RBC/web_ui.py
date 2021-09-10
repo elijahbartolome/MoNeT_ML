@@ -6,6 +6,10 @@ from pathlib import Path
 
 st.title("STP Models")
 
+st.write("""
+## By Elijah Bartolome
+""")
+
 st.session_state.dataset_name = st.sidebar.selectbox("Select Dataset", ("", "SCA", "CLS", "REG"))
 
 st.session_state.model_name = st.sidebar.selectbox("Select Model", ("", "ET", "GBT", "RF"))
@@ -53,25 +57,68 @@ if st.session_state.metric_name and st.session_state.dataset_name and st.session
     def add_parameter_ui():
         params = []
 
-        if st.session_state.dataset_name == "SCA":
-            FEATS = ['i_sex', 'i_ren', 'i_res', 'i_rsg', 'i_gsv', 'i_fch', 'i_fcb', 'i_fcr', 'i_hrm', 'i_hrf', 'i_grp', 'i_mig']
-        elif st.session_state.dataset_name == 'CLS' or st.session_state.dataset_name == 'REG':
-            FEATS = ['i_sxm', 'i_sxg', 'i_sxn', 'i_ren', 'i_res', 'i_rsg', 'i_gsv', 'i_fch', 'i_fcb', 'i_fcr', 'i_hrm', 'i_hrf', 'i_grp', 'i_mig']
+        i_sex = st.sidebar.slider(label="Sex-sorting of the released transgenic mosquitos" ,min_value=1, max_value=3, value=1, step=1)
+        params.append(i_sex)
 
-        st.sidebar.write("Please choose inputs for features to make prediction on:")
+        i_ren = st.sidebar.slider(label="Number of releases (weekly)", min_value=0, max_value=24, value=12, step=1)
+        params.append(i_ren)
 
-        for feat in FEATS:
-            value = st.sidebar.text_input(feat)
-            params.append(value)
+        i_res = st.sidebar.slider(label="Release size (fraction of the total population)", min_value=0.0, max_value=1.0, value=.5, step=.01)
+        params.append(i_res)
 
-        test = np.array(params)
-        test = test.reshape(1, -1)
-        return test
+        i_rsg = st.sidebar.slider(label="Resistance generation rate", min_value=0.0, max_value=.1185, value=.079, step=.01)
+        params.append(i_rsg)
+
+        i_gsv = st.sidebar.slider(label="Genetic standing variation (value will be divided by 100)", min_value=0.0, max_value=1.0, value=1.0, step=.01)
+        params.append(i_gsv/100)
+
+        i_fch = st.sidebar.slider(label="Fitness cost on the H alleles (homing)", min_value=0.0, max_value=1.0, value=.175, step=.01)
+        params.append(i_fch)
+
+        i_fcb = st.sidebar.slider(label="Fitness cost on the B alleles (out-of-frame resistant)", min_value=0.0, max_value=1.0, value=.117, step=.01)
+        params.append(i_fcb)
+
+        i_fcr = st.sidebar.slider(label="Fitness cost on the R alleles (in-frame resistant)", min_value=0.0, max_value=1.0, value=0.0, step=.01)
+        params.append(i_fcr)
+
+        i_hrm = st.sidebar.slider(label="Homing rate on males", min_value=0.0, max_value=1.0, value=1.0, step=.01)
+        params.append(i_hrm)
+
+        i_hrf = st.sidebar.slider(label="Homing rate on females", min_value=0.0, max_value=1.0, value=.956, step=.01)
+        params.append(i_hrf)
+
+        i_grp = 0
+        params.append(i_grp)
+
+        i_mig = 0
+        params.append(i_mig)
+
+        return params
+
+    st.sidebar.write("""
+    ## Select Parameters:
+    """)
 
     params = add_parameter_ui()
 
     def predict(clf, params, dataset, model, metric):
-        output = clf.predict(params)
+        if dataset == "REG" or dataset == "CLS":
+            if params[0] == 1:
+                new_params = [1, 0, 0]
+                new_params.extend(params[1:])
+            elif params[0] == 2:
+                new_params = [0, 1, 0]
+                new_params.extend(params[1:])
+            elif params[0] == 3:
+                new_params = [0, 0, 1]
+                new_params.extend(params[1:])
+        else:
+            new_params = params
+
+        new_params = np.array(new_params)
+        new_params = new_params.reshape(1, -1)
+
+        output = clf.predict(new_params)
         st.write("""
         ## Predicted Output for
         """)
