@@ -24,17 +24,15 @@ st.sidebar.write("""
 * `v`: Voting Classifier/Regressor
 """)
 
-st.session_state.metric_name = st.sidebar.selectbox("Select Metric", ("", "CPT", "TTI", "TTO"))
+st.session_state.metric_name = st.sidebar.selectbox("Select Metric", ("", "CPT", "TTI", "TTO", "WOP", "POE"))
 
 st.sidebar.write("""
-## Metric Abbreviations (Only CPT, TTI, and TTO working now):
+## Metric Abbreviations:
 * `CPT`: Cumulative fraction of mosquitoes divided by time
 * `TTI`: Time to introgression
 * `TTO`: Time to outrogression
 * `WOP`: Window of protection
 * `POE`: Probability of elimination/fixation
-* `MIN`: Minimum of mosquitoes
-* `RAP`: Fraction of mosquites at timepoint
 """)
 
 (VT_SPLIT, TREES, DEPTH, KFOLD, JOB) = (
