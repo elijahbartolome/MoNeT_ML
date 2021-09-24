@@ -2,6 +2,46 @@
 # chmod +x STP_clsTrain.sh
 
 # Train models
+<<comment
+python STP_Train_rf.py 'SCA' 'CPT' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_et.py 'SCA' 'CPT' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_gbt.py 'SCA' 'CPT' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+
+python STP_Train_rf.py 'CLS' 'CPT' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_et.py 'CLS' 'CPT' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_gbt.py 'CLS' 'CPT' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+
+python STP_Train_rf.py 'REG' 'CPT' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_et.py 'REG' 'CPT' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_gbt.py 'REG' 'CPT' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+
+
+python STP_Train_rf.py 'SCA' 'TTI' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_et.py 'SCA' 'TTI' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_gbt.py 'SCA' 'TTI' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+
+python STP_Train_rf.py 'CLS' 'TTI' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_et.py 'CLS' 'TTI' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_gbt.py 'CLS' 'TTI' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+
+python STP_Train_rf.py 'REG' 'TTI' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_et.py 'REG' 'TTI' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_gbt.py 'REG' 'TTI' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+
+
+python STP_Train_rf.py 'SCA' 'TTO' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_et.py 'SCA' 'TTO' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_gbt.py 'SCA' 'TTO' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+
+python STP_Train_rf.py 'CLS' 'TTO' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_et.py 'CLS' 'TTO' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_gbt.py 'CLS' 'TTO' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+
+python STP_Train_rf.py 'REG' 'TTO' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_et.py 'REG' 'TTO' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_gbt.py 'REG' 'TTO' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+
+
 python STP_Train_rf.py 'SCA' 'WOP' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
 python STP_Train_et.py 'SCA' 'WOP' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
 python STP_Train_gbt.py 'SCA' 'WOP' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
@@ -26,29 +66,10 @@ python STP_Train_gbt.py 'CLS' 'POE' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
 python STP_Train_rf.py 'REG' 'POE' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
 python STP_Train_et.py 'REG' 'POE' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
 python STP_Train_gbt.py 'REG' 'POE' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+comment
 
-
-python STP_Train_rf.py 'SCA' 'MIN' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
-python STP_Train_et.py 'SCA' 'MIN' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
-python STP_Train_gbt.py 'SCA' 'MIN' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
-
-python STP_Train_rf.py 'CLS' 'MIN' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
-python STP_Train_et.py 'CLS' 'MIN' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
-python STP_Train_gbt.py 'CLS' 'MIN' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
-
-python STP_Train_rf.py 'REG' 'MIN' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
-python STP_Train_et.py 'REG' 'MIN' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
-python STP_Train_gbt.py 'REG' 'MIN' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
-
-
-python STP_Train_rf.py 'SCA' 'RAP' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
-python STP_Train_et.py 'SCA' 'RAP' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
-python STP_Train_gbt.py 'SCA' 'RAP' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
-
-python STP_Train_rf.py 'CLS' 'RAP' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
-python STP_Train_et.py 'CLS' 'RAP' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
-python STP_Train_gbt.py 'CLS' 'RAP' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
-
-python STP_Train_rf.py 'REG' 'RAP' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
-python STP_Train_et.py 'REG' 'RAP' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
-python STP_Train_gbt.py 'REG' 'RAP' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_gbt.py 'CLS' 'CPT' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_gbt.py 'CLS' 'TTI' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_gbt.py 'CLS' 'TTO' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_gbt.py 'CLS' 'WOP' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_Train_gbt.py 'CLS' 'POE' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'

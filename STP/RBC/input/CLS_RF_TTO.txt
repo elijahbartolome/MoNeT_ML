@@ -1,0 +1,53 @@
+* Train/Validate entries: `2258460/2258461 (4516921)`
+* Cross-validation F1: `0.98 (+/-0.00)`
+* Validation Accuracy: `0.98`
+* Validation F1: `0.98 (0.98/0.98)`
+* Jaccard: `0.96`
+* Features Importance & Correlation
+```
+i_sxm: 0.006, 0.008
+i_sxg: 0.000, -0.006
+i_sxn: 0.000, -0.002
+i_ren: 0.348, -0.396
+i_res: 0.232, -0.467
+i_rsg: 0.000, -0.001
+i_gsv: 0.001, 0.000
+i_fch: 0.211, 0.012
+i_fcb: 0.107, -0.003
+i_fcr: 0.089, 0.003
+i_hrm: 0.002, -0.251
+i_hrf: 0.003, -0.186
+i_grp: 0.000, nan
+i_mig: 0.000, nan
+```
+* Drop-Cols & Permutation Features Importance
+```
+i_sxm: 0.001, 0.002
+i_sxg: 0.000, 0.000
+i_sxn: 0.000, 0.000
+i_ren: 0.068, 0.180
+i_res: 0.069, 0.194
+i_rsg: 0.000, 0.000
+i_gsv: 0.000, 0.001
+i_fch: 0.069, 0.101
+i_fcb: 0.026, 0.047
+i_fcr: 0.033, 0.050
+i_hrm: 0.000, 0.001
+i_hrf: 0.000, 0.000
+i_grp: 0.000, 0.000
+i_mig: 0.000, 0.000
+```
+* Class report: 
+```
+              precision    recall  f1-score   support
+
+           0       0.88      0.88      0.88    109949
+           1       0.79      0.75      0.77     95149
+           2       0.73      0.82      0.77     60441
+           3       1.00      1.00      1.00   1992922
+
+    accuracy                           0.98   2258461
+   macro avg       0.85      0.86      0.86   2258461
+weighted avg       0.98      0.98      0.98   2258461
+
+```

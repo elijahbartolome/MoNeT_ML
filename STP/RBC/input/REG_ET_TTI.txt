@@ -1,0 +1,5 @@
+* Train/Validate entries: `2258460/2258461 (4516921)`
+* Cross-validation R2: `1.00 (+/-0.00)`
+* R2 score: `1.00`
+* Root Mean square error: `34.42`
+* Mean absolute error: `1.99`

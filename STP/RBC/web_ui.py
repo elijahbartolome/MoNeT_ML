@@ -43,6 +43,18 @@ st.sidebar.write("""
 
 if st.session_state.metric_name and st.session_state.dataset_name and st.session_state.model_name: 
 
+    file_metric_name = Path(__file__).parents[0] / "input/{dataset_name}_{model_name}_{metric_name}.txt".format(dataset_name=st.session_state.dataset_name, model_name=st.session_state.model_name, metric_name=st.session_state.metric_name)
+    if file_metric_name.is_file():
+        metric_clicked = st.checkbox('See Model Metrics')
+        if metric_clicked:
+            file = open(file_metric_name)
+            line = file.read()
+            st.write("""
+                ## Model Metrics:
+                """)
+            st.markdown(line)
+            file.close()
+
     @st.cache(allow_output_mutation=True)
     def get_model(dataset, model, metric):
         file_name = Path(__file__).parents[0] / "input/{dataset_name}_{model_name}_{metric_name}.pkl".format(dataset_name=dataset, model_name=model, metric_name=metric)
@@ -129,6 +141,7 @@ if st.session_state.metric_name and st.session_state.dataset_name and st.session
         st.write("Metric:")
         st.write(metric)
 
+        st.write("Output:")
         st.write(output[0])
 
     # Run functions
