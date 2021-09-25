@@ -3,28 +3,30 @@
 * Validation Accuracy: `1.00`
 * Validation F1: `1.00 (1.00/1.00)`
 * Jaccard: `1.00`
+* Log Loss: `0.04`
 * Features Importance & Correlation
 ```
 i_sxm: 0.004, 0.008
 i_sxg: 0.001, -0.006
 i_sxn: 0.000, -0.002
-i_ren: 0.721, -0.396
-i_res: 0.257, -0.467
+i_ren: 0.722, -0.396
+i_res: 0.256, -0.467
 i_rsg: 0.000, -0.001
 i_gsv: 0.000, 0.000
 i_fch: 0.007, 0.012
 i_fcb: 0.001, -0.003
 i_fcr: 0.000, 0.003
 i_hrm: 0.004, -0.251
-i_hrf: 0.004, -0.186
+i_hrf: 0.005, -0.186
 i_grp: 0.000, nan
 i_mig: 0.000, nan
+```
 * Class report: 
 ```
               precision    recall  f1-score   support
 
-           0       1.00      1.00      1.00    455334
-           1       1.00      1.00      1.00   1803127
+           0       1.00      1.00      1.00    456243
+           1       1.00      1.00      1.00   1802218
 
     accuracy                           1.00   2258461
    macro avg       1.00      1.00      1.00   2258461

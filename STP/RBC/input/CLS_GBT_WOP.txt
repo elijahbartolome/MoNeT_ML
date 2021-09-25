@@ -3,22 +3,35 @@
 * Validation Accuracy: `0.99`
 * Validation F1: `0.99 (0.99/0.99)`
 * Jaccard: `0.98`
+* Log Loss: `0.05`
 * Features Importance & Correlation
 ```
 i_sxm: 0.009, 0.008
 i_sxg: 0.002, -0.006
 i_sxn: 0.000, -0.002
-i_ren: 0.404, -0.396
-i_res: 0.163, -0.467
+i_ren: 0.403, -0.396
+i_res: 0.164, -0.467
 i_rsg: 0.002, -0.001
 i_gsv: 0.002, 0.000
-i_fch: 0.240, 0.012
-i_fcb: 0.098, -0.003
-i_fcr: 0.070, 0.003
+i_fch: 0.239, 0.012
+i_fcb: 0.096, -0.003
+i_fcr: 0.072, 0.003
 i_hrm: 0.005, -0.251
-i_hrf: 0.006, -0.186
+i_hrf: 0.005, -0.186
 i_grp: 0.000, nan
 i_mig: 0.000, nan
 ```
-* Drop-Cols & Permutation Features Importance
+* Class report: 
+```
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00   1915798
+           1       0.89      0.89      0.89     84690
+           2       0.88      0.88      0.88     57008
+           3       0.99      0.99      0.99    200965
+
+    accuracy                           0.99   2258461
+   macro avg       0.94      0.94      0.94   2258461
+weighted avg       0.99      0.99      0.99   2258461
+
 ```

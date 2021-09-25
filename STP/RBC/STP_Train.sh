@@ -68,8 +68,23 @@ python STP_Train_et.py 'REG' 'POE' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
 python STP_Train_gbt.py 'REG' 'POE' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
 comment
 
-python STP_Train_gbt.py 'CLS' 'CPT' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
-python STP_Train_gbt.py 'CLS' 'TTI' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
-python STP_Train_gbt.py 'CLS' 'TTO' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
-python STP_Train_gbt.py 'CLS' 'WOP' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
-python STP_Train_gbt.py 'CLS' 'POE' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+
+python STP_evaluate.py 'CLS' 'RF' 'CPT' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_evaluate.py 'CLS' 'ET' 'CPT' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_evaluate.py 'CLS' 'GBT' 'CPT' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+
+python STP_evaluate.py 'CLS' 'RF' 'TTI' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_evaluate.py 'CLS' 'ET' 'TTI' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_evaluate.py 'CLS' 'GBT' 'TTI' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+
+python STP_evaluate.py 'CLS' 'RF' 'TTO' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_evaluate.py 'CLS' 'ET' 'TTO' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_evaluate.py 'CLS' 'GBT' 'TTO' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+
+python STP_evaluate.py 'CLS' 'RF' 'WOP' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_evaluate.py 'CLS' 'ET' 'WOP' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_evaluate.py 'CLS' 'GBT' 'WOP' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+
+python STP_evaluate.py 'CLS' 'RF' 'POE' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_evaluate.py 'CLS' 'ET' 'POE' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
+python STP_evaluate.py 'CLS' 'GBT' 'POE' 'C:\Users\azneb\MoNeT_ML\STP\RBC\input'
